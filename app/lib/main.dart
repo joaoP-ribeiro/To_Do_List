@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'Screns/HomePage.dart';
+import 'Screens/HomePage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  // init the hive
+  await Hive.initFlutter();
+
+  try {
+    // open a box
+    var box = await Hive.openBox('mybox');
+
+    runApp(const MyApp());
+  } catch (e) {
+    print(e);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -12,11 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TO DO',
-      theme: ThemeData(
-
-      ),
+      theme: ThemeData(),
       home: const MyHomePage(title: 'To Do'),
     );
   }
 }
-
